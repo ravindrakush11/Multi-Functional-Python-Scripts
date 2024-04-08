@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to Excel Converter</title>
+</head>
+<body>
+    <h1>JSON to Excel Converter</h1>
+    <h1> Convert Folder: </h1>
+    <h2>Convert Folder:</h2>
+    <input type="file" id="jsonFolder" multiple directory webkitdirectory>
+    <button onclick="convertFolderToJson()">Convert Folder to Excel</button>
+    <br><br>
+    <h2>Convert Single File:</h2>
+    <input type="file" id="jsonFile", label = 'Upload a single file'>
+    <button onclick="convertFileToJson()">Convert File to Excel</button>
+
+    <script>
+        function convertFolderToJson() {
+            const input = document.getElementById('jsonFolder');
+            const files = input.files;
+            const formData = new FormData();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('jsonFiles', files[i]);
+            }
+
+            fetch('/convert_folder', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'output.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function convertFileToJson() {
+            const input = document.getElementById('jsonFile');
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('jsonFile', file);
+
+            fetch('/convert_file', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'output.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
