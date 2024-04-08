@@ -9,7 +9,7 @@ def read_pdf_file(file_path):
         # Iterate through each page in the PDF and extract text
         for page_num in range(len(pdf_reader.pages)):
             page = pdf_reader.pages[page_num]
-            text = page.extract_text()          
+            text += page.extract_text()          
     return print(text)
 
 
