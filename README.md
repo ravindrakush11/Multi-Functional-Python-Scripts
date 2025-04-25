@@ -1,4 +1,4 @@
-# 🛠️ **Multi-Functional Python Scripts & Flask Web Applications**
+# 🛠️ **Multi-Functional Python Scripts**
 
 Welcome to the **Multi-Functional Python Scripts** repository! This collection of Python scripts and Flask web applications showcases a variety of tools and utilities for file handling, API testing, NLP tasks, and more. Whether you're building web apps, processing PDFs, or automating data workflows, this repository has you covered.
 
